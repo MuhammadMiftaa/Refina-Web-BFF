@@ -56,21 +56,15 @@ func AuthMiddleware() fiber.Handler {
 		}
 
 		userData := dto.UserData{
-			ID:       getClaimString(claims, "id"),
-			Username: getClaimString(claims, "username"),
-			Email:    getClaimString(claims, "email"),
+			ID:    claims["id"].(string),
+			Email: claims["email"].(string),
+			UserAuthProvider: dto.UserAuthProvider{
+				Provider:       claims["userAuthProvider"].(map[string]any)["provider"].(string),
+				ProviderUserId: claims["userAuthProvider"].(map[string]any)["providerUserId"].(string),
+			},
 		}
 
 		c.Locals("user_data", userData)
 		return c.Next()
 	}
-}
-
-func getClaimString(claims jwt.MapClaims, key string) string {
-	if val, ok := claims[key]; ok {
-		if s, ok := val.(string); ok {
-			return s
-		}
-	}
-	return ""
 }

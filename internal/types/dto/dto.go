@@ -1,10 +1,15 @@
 package dto
 
 // ── User data extracted from JWT ──
+type UserAuthProvider struct {
+	Provider       string `json:"provider"`
+	ProviderUserId string `json:"provider_user_id"`
+}
+
 type UserData struct {
-	ID       string `json:"id"`
-	Username string `json:"username"`
-	Email    string `json:"email"`
+	ID               string           `json:"id"`
+	Email            string           `json:"email"`
+	UserAuthProvider UserAuthProvider `json:"user_auth_provider"`
 }
 
 // ── Standard API Response ──
