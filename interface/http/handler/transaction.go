@@ -169,13 +169,14 @@ func (h *transactionHandler) CreateTransaction(c *fiber.Ctx) error {
 	}
 
 	grpcReq := &tpb.CreateTransactionRequest{
-		UserId:          userData.ID,
-		WalletId:        req.WalletID,
-		CategoryId:      req.CategoryID,
-		Amount:          req.Amount,
-		TransactionDate: req.TransactionDate,
-		Description:     req.Description,
-		Attachments:     req.Attachments,
+		UserId:             userData.ID,
+		WalletId:           req.WalletID,
+		CategoryId:         req.CategoryID,
+		Amount:             req.Amount,
+		TransactionDate:    req.TransactionDate,
+		Description:        req.Description,
+		Attachments:        req.Attachments,
+		IsWalletNotCreated: false,
 	}
 
 	ctx := interceptor.ContextWithUserData(c.UserContext(), userData)
